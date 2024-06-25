@@ -4,55 +4,68 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
     runs-on: macos-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.10.6'
+    - name: Install Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.3.9'
 
-      - name: Install dependencies
-        run: flutter pub get
+    - name: Install dependencies
+      run: flutter pub get
 
-      - name: Run Flutter tests
-        run: flutter test
+    - name: Ensure iOS platform is set up
+      run: flutter create .
 
-      - name: Install CocoaPods dependencies
-        run: |
-          cd ios
-          pod install
-        env:
-          LANG: en_US.UTF-8
+    - name: Generate Podfile if not exists
+      run: |
+        cd ios
+        if [ ! -f Podfile ]; then
+          pod init
+        fi
 
-      - name: Build iOS
-        run: |
-          flutter build ios --release --no-codesign
+    - name: Install CocoaPods dependencies
+      run: |
+        cd ios
+        pod install
+      env:
+        LANG: en_US.UTF-8
 
-      - name: Archive and export for distribution
-        env:
-          FLUTTER_ROOT: ${{ env.HOME }}/flutter
-        run: |
-          xcodebuild -workspace ios/Runner.xcworkspace \
-                     -scheme Runner \
-                     -sdk iphoneos \
-                     -configuration Release \
-                     archive \
-                     -archivePath $PWD/build/Runner.xcarchive
-          
-          xcodebuild -exportArchive \
-                     -archivePath $PWD/build/Runner.xcarchive \
-                     -exportOptionsPlist ios/Flutter/ExportOptions.plist \
-                     -exportPath $PWD/build/ios_release
+    - name: Run Flutter tests
+      run: flutter test
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ios-release
-          path: build/ios_release
+    - name: Build iOS
+      run: |
+        flutter build ios --release --no-codesign
+
+    - name: Archive and export for distribution
+      env:
+        FLUTTER_ROOT: ${{ env.HOME }}/flutter
+      run: |
+        xcodebuild -workspace ios/Runner.xcworkspace \
+                   -scheme Runner \
+                   -sdk iphoneos \
+                   -configuration Release \
+                   archive \
+                   -archivePath $PWD/build/Runner.xcarchive
+
+        xcodebuild -exportArchive \
+                   -archivePath $PWD/build/Runner.xcarchive \
+                   -exportOptionsPlist ios/Flutter/ExportOptions.plist \
+                   -exportPath $PWD/build/ios_release
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ios-release
+        path: build/ios_release
