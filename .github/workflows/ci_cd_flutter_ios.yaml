@@ -78,21 +78,26 @@ jobs:
       run: |
         flutter build ios --release --no-codesign
 
-    - name: Archive and export for distribution
-      run: |
-        xcodebuild -workspace ios/Runner.xcworkspace \
-                   -scheme Runner \
-                   -sdk iphoneos \
-                   -configuration Release \
-                   archive \
-                   -archivePath $PWD/build/Runner.xcarchive \
-                   DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }} \
-                   -allowProvisioningUpdates
+    # - name: Archive and export for distribution
+    #   run: |
+    #     xcodebuild -workspace ios/Runner.xcworkspace \
+    #                -scheme Runner \
+    #                -sdk iphoneos \
+    #                -configuration Release \
+    #                archive \
+    #                -archivePath $PWD/build/Runner.xcarchive \
+    #                DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }} \
+    #                -allowProvisioningUpdates
                    
-        xcodebuild -exportArchive \
-                   -archivePath $PWD/build/Runner.xcarchive \
-                   -exportOptionsPlist ios/Flutter/ExportOptions.plist \
-                   -exportPath $PWD/build/ios_release
+    #     xcodebuild -exportArchive \
+    #                -archivePath $PWD/build/Runner.xcarchive \
+    #                -exportOptionsPlist ios/Flutter/ExportOptions.plist \
+    #                -exportPath $PWD/build/ios_release
+
+    - name: Build IPA
+      run: |
+        flutter build ipa \
+          --export-options-plist=ios/Flutter/ExportOptions.plist
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
