@@ -86,7 +86,8 @@ jobs:
                    -configuration Release \
                    archive \
                    -archivePath $PWD/build/Runner.xcarchive \
-                   DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }}
+                   DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }} \
+                   -allowProvisioningUpdates
                    
         xcodebuild -exportArchive \
                    -archivePath $PWD/build/Runner.xcarchive \
