@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
 
 jobs:
   build:
@@ -26,13 +23,6 @@ jobs:
 
     - name: Ensure iOS platform is set up
       run: flutter create .
-
-    - name: Generate Podfile if not exists
-      run: |
-        cd ios
-        if [ ! -f Podfile ]; then
-          pod init
-        fi
 
     - name: Install CocoaPods dependencies
       run: |
