@@ -130,11 +130,20 @@ jobs:
 
     - name: build archive
       run: |
-        xcodebuild -scheme "I am Groot" \
-          -archivePath build/ios/archive/Runner.xcarchive \
+        # xcodebuild -scheme "I am Groot" \
+        #   -archivePath build/ios/archive/Runner.xcarchive \
+        #   -sdk iphoneos \
+        #   -destination generic/platform=iOS \
+        #   clean archive
+
+        xcodebuild -workspace ios/Runner.xcworkspace \
+          -scheme Runner \
           -sdk iphoneos \
-          -destination generic/platform=iOS \
-          clean archive
+          -configuration Release \
+          archive \
+          -archivePath $PWD/build/Runner.xcarchive \
+          DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }} \
+          -allowProvisioningUpdates
           
 
     - name: Upload artifact
