@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-
 jobs:
   build:
     runs-on: macos-latest
@@ -21,8 +20,8 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
 
-    - name: Ensure iOS platform is set up
-      run: flutter create .
+    - name: Run Flutter tests
+      run: flutter test
 
     - name: Install CocoaPods dependencies
       run: |
@@ -30,9 +29,6 @@ jobs:
         pod install
       env:
         LANG: en_US.UTF-8
-
-    - name: Run Flutter tests
-      run: flutter test
 
     - name: Build iOS
       run: |
