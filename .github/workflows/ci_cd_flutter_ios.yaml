@@ -112,6 +112,7 @@ jobs:
           -exportPath build/ios/ipa \
           -exportOptionsPlist ios/Flutter/ExportOptions.plist \
           DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }}
+          -allowProvisioningUpdates
           
 
     - name: Upload artifact
