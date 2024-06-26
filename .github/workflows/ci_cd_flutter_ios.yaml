@@ -119,14 +119,22 @@ jobs:
     #      api-key-id: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
     #      api-private-key: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
 
-    - name: Code sign IPA
+    # - name: Code sign IPA
+    #   run: |
+    #     xcodebuild -exportArchive \
+    #       -archivePath build/ios/archive/Runner.xcarchive \
+    #       -exportPath build/ios/ipa \
+    #       -exportOptionsPlist ios/Flutter/ExportOptions.plist \
+    #       DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }}
+    #       -allowProvisioningUpdates
+
+    - name: build archive
       run: |
-        xcodebuild -exportArchive \
-          -archivePath build/ios/archive/Runner.xcarchive \
-          -exportPath build/ios/ipa \
-          -exportOptionsPlist ios/Flutter/ExportOptions.plist \
-          DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }}
-          -allowProvisioningUpdates
+        xcodebuild -archivePath $RUNNER_TEMP/iamgroot.xcarchive \
+          -sdk iphoneos \
+          -configuration Debug \
+          -destination generic/platform=iOS \
+          clean archive
           
 
     - name: Upload artifact
