@@ -82,21 +82,21 @@ jobs:
       run: |
         flutter build ios --release --no-codesign
 
-    # - name: Archive and export for distribution
-    #   run: |
-    #     xcodebuild -workspace ios/Runner.xcworkspace \
-    #                -scheme Runner \
-    #                -sdk iphoneos \
-    #                -configuration Release \
-    #                archive \
-    #                -archivePath $PWD/build/Runner.xcarchive \
-    #                DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }} \
-    #                -allowProvisioningUpdates
+    - name: Archive and export for distribution
+      run: |
+        xcodebuild -workspace ios/Runner.xcworkspace \
+                   -scheme Runner \
+                   -sdk iphoneos \
+                   -configuration Release \
+                   archive \
+                   -archivePath $PWD/build/Runner.xcarchive \
+                   DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }} \
+                   -allowProvisioningUpdates
                    
-    #     xcodebuild -exportArchive \
-    #                -archivePath $PWD/build/Runner.xcarchive \
-    #                -exportOptionsPlist ios/Flutter/ExportOptions.plist \
-    #                -exportPath $PWD/build/ios_release
+        xcodebuild -exportArchive \
+                   -archivePath $PWD/build/Runner.xcarchive \
+                   -exportOptionsPlist ios/Flutter/ExportOptions.plist \
+                   -exportPath $PWD/build/ios_release
 
 
     - name: Build IPA
@@ -109,22 +109,6 @@ jobs:
           --no-codesign \
           --release
 
-
-    - name: Archive and export for distribution
-      run: |
-        xcodebuild -workspace ios/Runner.xcworkspace \
-                   -scheme Runner \
-                   -sdk iphoneos \
-                   -configuration Release \
-                   archive \
-                   -archivePath $PWD/build/Runner.xcarchive \
-                   DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }} \
-                   -allowProvisioningUpdates \
-                   
-        xcodebuild -exportArchive \
-                   -archivePath $PWD/build/Runner.xcarchive \
-                   -exportOptionsPlist ios/Flutter/ExportOptions.plist \
-                   -exportPath $PWD/build/ios_release
 
 
     # - name: 🍏🚀 Deploy to App Store (Testflight)
