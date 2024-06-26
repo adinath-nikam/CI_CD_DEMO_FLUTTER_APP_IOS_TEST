@@ -78,21 +78,21 @@ jobs:
       run: |
         flutter build ios --release --no-codesign
 
-    - name: Archive and export for distribution
-      env:
-        FLUTTER_ROOT: ${{ env.HOME }}/flutter
+    - name: Update Xcode project for code signing
       run: |
-        xcodebuild -workspace ios/Runner.xcworkspace \
+        cd ios
+        xcodebuild -workspace Runner.xcworkspace \
                    -scheme Runner \
-                   -sdk iphoneos \
                    -configuration Release \
-                   archive \
-                   -archivePath $PWD/build/Runner.xcarchive
-
+                   -allowProvisioningUpdates \
+                   -archivePath $PWD/build/Runner.xcarchive \
+                   archive
         xcodebuild -exportArchive \
                    -archivePath $PWD/build/Runner.xcarchive \
-                   -exportOptionsPlist ios/Flutter/ExportOptions.plist \
+                   -exportOptionsPlist Flutter/ExportOptions.plist \
                    -exportPath $PWD/build/ios_release
+      env:
+        DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
