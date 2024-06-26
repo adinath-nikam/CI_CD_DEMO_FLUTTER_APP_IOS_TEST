@@ -110,13 +110,33 @@ jobs:
           --release
 
 
-    - name: 🍏🚀 Deploy to App Store (Testflight)
-      uses: apple-actions/upload-testflight-build@v1
-      with:
-         app-path: ${{ github.workspace }}/app/build/ios/ipa/flutter_ci_cd_demo.ipa
-         issuer-id: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
-         api-key-id: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-         api-private-key: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+    - name: Archive and export for distribution
+      run: |
+        xcodebuild -workspace ios/Runner.xcworkspace \
+                   -scheme Runner \
+                   -sdk iphoneos \
+                   -configuration Release \
+                   archive \
+                   -archivePath $PWD/build/Runner.xcarchive \
+                   DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }} \
+                   -allowProvisioningUpdates \
+                   -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
+                   -authenticationIssuerID ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }} \
+                   -authenticationPrivateKeyPath ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+                   
+        xcodebuild -exportArchive \
+                   -archivePath $PWD/build/Runner.xcarchive \
+                   -exportOptionsPlist ios/Flutter/ExportOptions.plist \
+                   -exportPath $PWD/build/ios_release
+
+
+    # - name: 🍏🚀 Deploy to App Store (Testflight)
+    #   uses: apple-actions/upload-testflight-build@v1
+    #   with:
+    #      app-path: ${{ github.workspace }}/app/build/ios/ipa/flutter_ci_cd_demo.ipa
+    #      issuer-id: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+    #      api-key-id: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+    #      api-private-key: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
 
     # - name: Code sign IPA
     #   run: |
