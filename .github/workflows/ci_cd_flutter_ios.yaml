@@ -120,9 +120,6 @@ jobs:
                    -archivePath $PWD/build/Runner.xcarchive \
                    DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }} \
                    -allowProvisioningUpdates \
-                   -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
-                   -authenticationIssuerID ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }} \
-                   -authenticationPrivateKeyPath ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
                    
         xcodebuild -exportArchive \
                    -archivePath $PWD/build/Runner.xcarchive \
