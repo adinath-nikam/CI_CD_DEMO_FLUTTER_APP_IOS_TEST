@@ -23,12 +23,12 @@ jobs:
     - name: Run Flutter tests
       run: flutter test
 
-    - name: Install CocoaPods dependencies
-      run: |
-        cd ios
-        pod install
-      env:
-        LANG: en_US.UTF-8
+    # - name: Install CocoaPods dependencies
+    #   run: |
+    #     cd ios
+    #     pod install
+    #   env:
+    #     LANG: en_US.UTF-8
 
     - name: Build iOS
       run: |
