@@ -94,10 +94,25 @@ jobs:
     #                -exportOptionsPlist ios/Flutter/ExportOptions.plist \
     #                -exportPath $PWD/build/ios_release
 
+
     - name: Build IPA
       run: |
         flutter build ipa \
-          --export-options-plist=ios/Flutter/ExportOptions.plist
+          --export-options-plist=ios/Flutter/ExportOptions.plist \
+          --build-name=${{ github.run_number }} \
+          --build-number=${{ github.run_id }} \
+          --build-name="${{ github.ref }}" \
+          --no-codesign \
+          --release
+
+    - name: Code sign IPA
+      run: |
+        xcodebuild -exportArchive \
+          -archivePath build/ios/archive/Runner.xcarchive \
+          -exportPath build/ios/ipa \
+          -exportOptionsPlist ios/Flutter/ExportOptions.plist \
+          DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }}
+          
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
