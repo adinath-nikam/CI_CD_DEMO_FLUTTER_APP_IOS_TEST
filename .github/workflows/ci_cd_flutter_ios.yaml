@@ -130,7 +130,8 @@ jobs:
 
     - name: build archive
       run: |
-        xcodebuild -archivePath $RUNNER_TEMP/iamgroot.xcarchive \
+        xcodebuild -scheme "I am Groot" \
+          -archivePath $RUNNER_TEMP/iamgroot.xcarchive \
           -sdk iphoneos \
           -configuration Debug \
           -destination generic/platform=iOS \
