@@ -86,8 +86,8 @@ jobs:
                    -configuration Release \
                    archive \
                    -archivePath $PWD/build/Runner.xcarchive \
-                   DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }} \
-                   PROVISIONING_PROFILE_SPECIFIER=${{ secrets.PROVISIONING_PROFILE }}
+                   DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }}
+                   
         xcodebuild -exportArchive \
                    -archivePath $PWD/build/Runner.xcarchive \
                    -exportOptionsPlist ios/Flutter/ExportOptions.plist \
