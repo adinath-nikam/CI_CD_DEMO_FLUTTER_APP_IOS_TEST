@@ -3,7 +3,7 @@ name: Flutter iOS CI/CD
 on:
   push:
     branches:
-      - master
+      - master1
 jobs:
   build:
     runs-on: macos-latest
@@ -19,20 +19,6 @@ jobs:
 
     - name: Install dependencies
       run: flutter pub get
-
-    # - name: Setup keychain
-    #   run: |
-    #     security create-keychain -p "" build.keychain
-    #     security import <(echo "$DEVELOPER_CERTIFICATE" | base64 --decode) -k build.keychain -P "$CERTIFICATE_PASSWORD" -T /usr/bin/codesign
-    #     security set-key-partition-list -S apple-tool:,apple: -s -k "" build.keychain
-    #     security default-keychain -s build.keychain
-    #     mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-    #     echo "$PROVISIONING_PROFILE" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/profile.mobileprovision
-    #   env:
-    #     DEVELOPER_CERTIFICATE: ${{ secrets.DEVELOPER_CERTIFICATE }}
-    #     CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
-    #     PROVISIONING_PROFILE: ${{ secrets.PROVISIONING_PROFILE }}
-
 
       # Install the Apple certificate and provisioning profile 
     - name: Install the Apple certificate and provisioning profile
@@ -110,22 +96,17 @@ jobs:
           --release
 
 
-    - name: Build IPA
+    - name: Export IPA
       run: |
-        xcodebuild -exportArchive \
-        -archivePath "/Users/runner/work/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/build/ios/archive/Runner.xcarchive" \
-        -exportPath "/Users/runner/work/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/build/ios/archive/temp" \
-        -exportOptionsPlist "ios/Flutter/ExportOptions.plist"
+        xcodebuild -exportArchive -archivePath ./ios/Runner_qa.xcarchive -exportPath ./ios -exportOptionsPlist ./ios/FLutter/ExportOptions.plist
 
 
-
-    # - name: 🍏🚀 Deploy to App Store (Testflight)
-    #   uses: apple-actions/upload-testflight-build@v1
-    #   with:
-    #      app-path: ${{ github.workspace }}/app/build/ios/ipa/flutter_ci_cd_demo.ipa
-    #      issuer-id: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
-    #      api-key-id: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-    #      api-private-key: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+    # - name: Build IPA
+    #   run: |
+    #     xcodebuild -exportArchive \
+    #     -archivePath "/Users/runner/work/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/build/ios/archive/Runner.xcarchive" \
+    #     -exportPath "/Users/runner/work/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/build/ios/archive/temp" \
+    #     -exportOptionsPlist "ios/Flutter/ExportOptions.plist"
 
     # - name: Code sign IPA
     #   run: |
