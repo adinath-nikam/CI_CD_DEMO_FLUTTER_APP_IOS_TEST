@@ -107,8 +107,8 @@ jobs:
       env:
         APP_STORE_AUTH_P8_KEY: ${{ secrets.AUTH_P8_KEY }}
       run: |
-        echo "${APP_STORE_AUTH_P8_KEY}" > /Users/runner/work/_temp/AuthKey.p8
-        chmod 600 /Users/runner/work/_temp/AuthKey.p8
+        echo "${APP_STORE_AUTH_P8_KEY}" > /Users/runner/work/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/build/ios/AuthKey.p8
+        chmod 600 /Users/runner/work/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/build/ios/AuthKey.p8
 
 
     - name: Upload IPA to App Store Connect
@@ -120,7 +120,7 @@ jobs:
                      --file ${{ github.workspace }}/build/ios/archive/ipa/ci_cd_flutter_demo_ios_app.ipa \
                      --apiKey ${APP_STORE_CONNECT_KEY_ID} \
                      --apiIssuer ${APP_STORE_CONNECT_ISSUER_ID} \
-                     --apiKeyPath /Users/runner/work/_temp/AuthKey.p8
+                     --apiKeyPath /Users/runner/work/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/build/ios/AuthKey.p8
 
 
     # - name: Deploy to App Store (Testflight)
