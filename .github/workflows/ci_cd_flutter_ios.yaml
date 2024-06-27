@@ -119,7 +119,7 @@ jobs:
         xcrun altool --upload-app --type ios \
                      --file ${{ github.workspace }}/build/ios/archive/ipa/ci_cd_flutter_demo_ios_app.ipa \
                      --apiKey ${APP_STORE_CONNECT_KEY_ID} \
-                     --apiIssuer ${APP_STORE_CONNECT_API_ISSUER_ID} \
+                     --apiIssuer ${APP_STORE_CONNECT_ISSUER_ID} \
                      --apiKeyPath /Users/runner/work/_temp/AuthKey.p8
 
 
