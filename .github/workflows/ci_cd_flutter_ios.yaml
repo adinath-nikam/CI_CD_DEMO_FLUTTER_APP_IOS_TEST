@@ -113,13 +113,13 @@ jobs:
 
     - name: Upload IPA to App Store Connect
       env:
-        APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_AUTH_P8_KEY }}
+        APP_STORE_CONNECT_KEY_ID: ${{ secrets.AUTH_P8_KEY }}
         APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
       run: |
         xcrun altool --upload-app --type ios \
                      --file ${{ github.workspace }}/build/ios/archive/ipa/ci_cd_flutter_demo_ios_app.ipa \
-                     --apiKey ${APP_STORE_AUTH_P8_KEY} \
-                     --apiIssuer ${APP_STORE_CONNECT_API_ISSUER_ID} \
+                     --apiKey ${APP_STORE_CONNECT_KEY_ID} \
+                     --apiIssuer ${APP_STORE_CONNECT_ISSUER_ID} \
                      --apiKeyPath /Users/runner/work/_temp/AuthKey.p8
 
 
