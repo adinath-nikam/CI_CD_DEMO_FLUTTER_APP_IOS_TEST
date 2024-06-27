@@ -142,4 +142,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ios-release
-        path: /Users/runner/work/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/build/ios/archive/temp
+        path: /Users/runner/work/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/build/ios/archive/ipa
