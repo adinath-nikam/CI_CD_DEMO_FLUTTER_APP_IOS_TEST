@@ -3,7 +3,7 @@ name: Flutter iOS CI/CD
 on:
   push:
     branches:
-      - master1
+      - master
 jobs:
   build:
     runs-on: macos-latest
