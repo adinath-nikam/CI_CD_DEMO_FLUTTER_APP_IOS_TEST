@@ -98,7 +98,9 @@ jobs:
 
     - name: Export IPA
       run: |
-        xcodebuild -exportArchive -archivePath ./ios/Runner_qa.xcarchive -exportPath ./ios -exportOptionsPlist ./ios/FLutter/ExportOptions.plist
+        xcodebuild -exportArchive -archivePath /Users/runner/work/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/build/ios/archive/Runner.xcarchive \
+        -exportPath /Users/runner/work/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/build/ios/archive/ipa \
+        -exportOptionsPlist ./ios/FLutter/ExportOptions.plist
 
 
     # - name: Build IPA
