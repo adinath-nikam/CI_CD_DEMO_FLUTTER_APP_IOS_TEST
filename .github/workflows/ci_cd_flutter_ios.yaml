@@ -112,13 +112,13 @@ jobs:
 
 
       run: | 
-        mkdir -p ~/private_keys \
+        mkdir -p ~/private_keys
         echo -n "$APP_STORE_AUTH_P8_KEY" | base64 --decode --output ~/private_keys/AuthKey_53CY77L5AS.p8
 
 
     - name: List all Files
       run: |
-        ls -l ~/private_keys/ \
+        ls -l ~/private_keys/
         cat ~/private_keys/AuthKey_53CY77L5AS.p8
 
 
