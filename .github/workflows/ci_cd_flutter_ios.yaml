@@ -3,7 +3,7 @@ name: Flutter iOS CI/CD
 on:
   push:
     branches:
-      - master
+      - master1
 
 jobs:
   build:
@@ -44,6 +44,10 @@ jobs:
         
         mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
         cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
+        ls -l $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
+        cat $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
 
     - name: Run Flutter tests
       run: flutter test
