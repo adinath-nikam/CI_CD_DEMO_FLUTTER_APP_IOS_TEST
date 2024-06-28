@@ -86,15 +86,15 @@ jobs:
 
 
 # ------------
-    # - name: Build IPA
-    #   run: |
-    #     flutter build ipa \
-    #       --export-options-plist=ios/Flutter/ExportOptions.plist \
-    #       --build-name=${{ github.run_number }} \
-    #       --build-number=${{ github.run_id }} \
-    #       --build-name="${{ github.ref }}" \
-    #       --no-codesign \
-    #       --release
+    - name: Build IPA
+      run: |
+        flutter build ipa \
+          --export-options-plist=ios/Flutter/ExportOptions.plist \
+          --build-name=${{ github.run_number }} \
+          --build-number=${{ github.run_id }} \
+          --build-name="${{ github.ref }}" \
+          --no-codesign \
+          --release
 # -------------
 
 
