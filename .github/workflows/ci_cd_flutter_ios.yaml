@@ -48,8 +48,8 @@ jobs:
     - name: Run Flutter tests
       run: flutter test
 
-    - name: Build iOS
-      run: flutter build ios --release
+    # - name: Build iOS
+    #   run: flutter build ios --release
 
     - name: Export Xcode Archive
       run: |
