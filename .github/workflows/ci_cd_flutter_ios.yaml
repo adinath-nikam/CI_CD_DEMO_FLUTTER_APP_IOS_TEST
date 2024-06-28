@@ -3,7 +3,7 @@ name: Flutter iOS CI/CD
 on:
   push:
     branches:
-      - master
+      - master1
 jobs:
   build:
     runs-on: macos-latest
@@ -85,15 +85,17 @@ jobs:
     #                -exportPath $PWD/build/ios_release
 
 
-    - name: Build IPA
-      run: |
-        flutter build ipa \
-          --export-options-plist=ios/Flutter/ExportOptions.plist \
-          --build-name=${{ github.run_number }} \
-          --build-number=${{ github.run_id }} \
-          --build-name="${{ github.ref }}" \
-          --no-codesign \
-          --release
+# ------------
+    # - name: Build IPA
+    #   run: |
+    #     flutter build ipa \
+    #       --export-options-plist=ios/Flutter/ExportOptions.plist \
+    #       --build-name=${{ github.run_number }} \
+    #       --build-number=${{ github.run_id }} \
+    #       --build-name="${{ github.ref }}" \
+    #       --no-codesign \
+    #       --release
+# -------------
 
 
     - name: Export IPA
