@@ -103,7 +103,7 @@ jobs:
         -exportOptionsPlist ./ios/FLutter/ExportOptions.plist
 
 
-    - name: Decrypt and save AuthKey file
+    - name: Get AuthKey file
       env:
         APP_STORE_AUTH_P8_KEY: ${{ secrets.AUTH_P8_KEY }}
       # run: |
@@ -116,6 +116,11 @@ jobs:
         echo -n "$APP_STORE_AUTH_P8_KEY" | base64 --decode --output ~/private_keys/AuthKey_53CY77L5AS.p8
 
 
+    - name: List all Files
+      run: |
+        ls -l ~/private_keys/
+
+
     - name: Upload IPA to App Store Connect
       env:
         APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
@@ -125,7 +130,7 @@ jobs:
                      --file ${{ github.workspace }}/build/ios/archive/ipa/ci_cd_flutter_demo_ios_app.ipa \
                      --apiKey ${APP_STORE_CONNECT_KEY_ID} \
                      --apiIssuer ${APP_STORE_CONNECT_ISSUER_ID} \
-                     --apiKeyPath /Users/runner/work/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/build/ios/AuthKey_53CY77L5AS.p8
+                     --apiKeyPath ~/private_keys/AuthKey_53CY77L5AS.p8
 
 
     # - name: Deploy to App Store (Testflight)
