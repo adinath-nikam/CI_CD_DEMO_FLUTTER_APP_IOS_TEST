@@ -11,7 +11,7 @@ http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <string>app-store</string>
 <key>provisioningProfiles</key>
 <dict>
-<key>com.scientificgames.cicdtestapp</key>
+<key>LQ6RFS97ZY.com.scientificgames.cicdtestapp</key>
 <string>CICD Test App</string>
 </dict>
 <key>signingCertificate</key>
