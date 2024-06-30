@@ -61,6 +61,10 @@ jobs:
         mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
         cp $PATH_PROVISIONING_PROFILE ~/Library/MobileDevice/Provisioning\ Profiles
 
+        ls -l ~/Library/MobileDevice/Provisioning\ Profiles
+
+        cat ~/Library/MobileDevice/Provisioning\ Profiles/pp_cicdtestapp.mobileprovision
+
 
 
     - name: Set development team for code signing
