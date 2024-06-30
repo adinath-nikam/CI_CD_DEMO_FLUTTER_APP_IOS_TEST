@@ -54,7 +54,7 @@ jobs:
 
         # import certificate to keychain
         security import $PATH_CERTIFICATE_DISTRIBUTION -P "$PASSWORD_CERTIFICATE_DISTRIBUTION" -A -t cert -f pkcs12 -k $PATH_KEYCHAIN
-        # security import $PATH_CERTIFICATE_DEVELOPER -t cert -f pkcs12 -k $PATH_KEYCHAIN
+        security import $PATH_CERTIFICATE_DEVELOPER -P "$PASSWORD_CERTIFICATE_DISTRIBUTION" -A -t cert -f pkcs12 -k $PATH_KEYCHAIN
         security list-keychain -d user -s $PATH_KEYCHAIN
 
         # apply provisioning profile
