@@ -62,6 +62,14 @@ jobs:
         cp $PATH_PROVISIONING_PROFILE ~/Library/MobileDevice/Provisioning\ Profiles
 
 
+
+    - name: Set development team for code signing
+      env:
+        DEVELOPMENT_TEAM: "LQ6RFS97ZY"
+      run: |
+        xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -configuration Release -allowProvisioningUpdates -destination 'generic/platform=iOS' CODE_SIGN_STYLE=Automatic DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM
+
+        
     - name: 🍏📦 Create iOS appbundle release
       env:
         KEYCHAIN_PASSWORD: ${{ secrets.PASSWORD_KEYCHAIN }}
