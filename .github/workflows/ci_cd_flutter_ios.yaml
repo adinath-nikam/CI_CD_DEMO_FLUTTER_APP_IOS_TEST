@@ -3,7 +3,7 @@ name: Flutter iOS CI/CD
 on:
   push:
     branches:
-      - master
+      - master1
 
 jobs:
   build:
@@ -65,7 +65,7 @@ jobs:
 
     - name: Set development team for code signing
       env:
-        DEVELOPMENT_TEAM: "YZGZ2642SH"
+        DEVELOPMENT_TEAM: "LQ6RFS97ZY"
       run: |
         xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -configuration Release -allowProvisioningUpdates -destination 'generic/platform=iOS' CODE_SIGN_STYLE=Automatic DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM
 
