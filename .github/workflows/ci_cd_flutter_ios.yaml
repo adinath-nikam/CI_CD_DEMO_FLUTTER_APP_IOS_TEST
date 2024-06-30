@@ -65,7 +65,7 @@ jobs:
 
     - name: Set development team for code signing
       env:
-        DEVELOPMENT_TEAM: "LQ6RFS97ZY"
+        DEVELOPMENT_TEAM: "YZGZ2642SH"
       run: |
         xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -configuration Release -allowProvisioningUpdates -destination 'generic/platform=iOS' CODE_SIGN_STYLE=Automatic DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM
 
