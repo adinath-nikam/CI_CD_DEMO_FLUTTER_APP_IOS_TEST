@@ -35,16 +35,8 @@ jobs:
         PATH_CERTIFICATE_DISTRIBUTION=$RUNNER_TEMP/certificate_distribution.p12
         PATH_PROVISIONING_PROFILE=$RUNNER_TEMP/pp_cicdtestapp.mobileprovision
         PATH_KEYCHAIN=$RUNNER_TEMP/app-signing.keychain-db
-
-
-
-
-        pwd
-
-        ls l
-
         
-        PATH_EXPORT_OPTIONS="${{ github.workspace }}/app/ios/Runner/ExportOptions.plist"
+        PATH_EXPORT_OPTIONS="${{ github.workspace }}/ios/Runner/ExportOptions.plist"
 
         # import certificate, provisioning profile and export options from secrets
         echo -n "$BASE64_CERTIFICATE_DISTRIBUTION" | base64 --decode -o $PATH_CERTIFICATE_DISTRIBUTION
