@@ -60,7 +60,7 @@ jobs:
       run: |
         flutter build ipa \
         --release \
-        --flavor tempFlavour \
+        --target lib/main.dart \
         --export-options-plist=ios/Flutter/ExportOptions.plist
 
                      
