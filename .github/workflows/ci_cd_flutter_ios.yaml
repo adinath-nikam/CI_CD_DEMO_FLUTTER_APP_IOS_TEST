@@ -24,8 +24,8 @@ jobs:
 
     - name: Install Apple certificate and provisioning profile
       env:
-        BASE64_CERTIFICATE_DISTRIBUTION: "${{ secrets.BASE64_CERTIFICATE_DISTRIBUTION }}"
-        # BASE64_CERTIFICATE_DEVELOPER: "${{ secrets.BASE64_CERTIFICATE_DEVELOPER }}"
+        # BASE64_CERTIFICATE_DISTRIBUTION: "${{ secrets.BASE64_CERTIFICATE_DISTRIBUTION }}"
+        BASE64_CERTIFICATE_DEVELOPER: "${{ secrets.BASE64_CERTIFICATE_DEVELOPER }}"
         PASSWORD_CERTIFICATE_DISTRIBUTION: "${{ secrets.PASSWORD_CERTIFICATE_DISTRIBUTION }}"
         BASE64_PP_CICDTESTAPP: "${{ secrets.BASE64_PP_CICDTESTAPP }}"
         PASSWORD_KEYCHAIN: "${{ secrets.PASSWORD_KEYCHAIN }}"
@@ -33,7 +33,7 @@ jobs:
         
       run: |
         # create variables
-        PATH_CERTIFICATE_DISTRIBUTION=$RUNNER_TEMP/certificate_distribution.p12
+        # PATH_CERTIFICATE_DISTRIBUTION=$RUNNER_TEMP/certificate_distribution.p12
         PATH_CERTIFICATE_DEVELOPER=$RUNNER_TEMP/certificate_developer.p12
         PATH_PROVISIONING_PROFILE=$RUNNER_TEMP/pp_cicdtestapp.mobileprovision
         PATH_KEYCHAIN=$RUNNER_TEMP/app-signing.keychain-db
