@@ -92,14 +92,14 @@ jobs:
                    -exportPath $PWD/build/ios_release
 
                    
-    - name: 🍏📦 Create iOS appbundle release
-      env:
-        KEYCHAIN_PASSWORD: ${{ secrets.PASSWORD_KEYCHAIN }}
-      run: |
-        security unlock-keychain -p "$PASSWORD_KEYCHAIN" $RUNNER_TEMP/app-signing.keychain-db
-        flutter build ipa \
-          --release \
-          --export-options-plist="${{ github.workspace }}/ios/Runner/ExportOptions.plist"
+    # - name: 🍏📦 Create iOS appbundle release
+    #   env:
+    #     KEYCHAIN_PASSWORD: ${{ secrets.PASSWORD_KEYCHAIN }}
+    #   run: |
+    #     security unlock-keychain -p "$PASSWORD_KEYCHAIN" $RUNNER_TEMP/app-signing.keychain-db
+    #     flutter build ipa \
+    #       --release \
+    #       --export-options-plist="${{ github.workspace }}/ios/Runner/ExportOptions.plist"
 
     - name: Deploy to App Store (Testflight)
       uses: apple-actions/upload-testflight-build@v1
