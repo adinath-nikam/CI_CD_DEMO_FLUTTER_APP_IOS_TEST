@@ -70,32 +70,32 @@ jobs:
     #     xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -configuration Release -allowProvisioningUpdates -destination 'generic/platform=iOS' CODE_SIGN_STYLE=Automatic DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM
 
 
-    - name: Export Xcode Archive
-      run: |
-        xcodebuild -workspace ios/Runner.xcworkspace \
-                   -scheme Runner \
-                   -sdk iphoneos \
-                   -configuration Release \
-                   archive \
-                   -archivePath $PWD/build/Runner.xcarchive \
-                   DEVELOPMENT_TEAM="LQ6RFS97ZY" \
-                   -allowProvisioningUpdates
+    # - name: Export Xcode Archive
+    #   run: |
+    #     xcodebuild -workspace ios/Runner.xcworkspace \
+    #                -scheme Runner \
+    #                -sdk iphoneos \
+    #                -configuration Release \
+    #                archive \
+    #                -archivePath $PWD/build/Runner.xcarchive \
+    #                DEVELOPMENT_TEAM="LQ6RFS97ZY" \
+    #                -allowProvisioningUpdates
                    
-    - name: Export IPA
-      run: |
-        xcodebuild -exportArchive -archivePath $PWD/build/Runner.xcarchive \
-                   -exportOptionsPlist ios/Runner/ExportOptions.plist \
-                   -exportPath $PWD/build/ios_release
+    # - name: Export IPA
+    #   run: |
+    #     xcodebuild -exportArchive -archivePath $PWD/build/Runner.xcarchive \
+    #                -exportOptionsPlist ios/Runner/ExportOptions.plist \
+    #                -exportPath $PWD/build/ios_release
 
                    
-    # - name: Create iOS appbundle release
-    #   env:
-    #     KEYCHAIN_PASSWORD: ${{ secrets.PASSWORD_KEYCHAIN }}
-    #   run: |
-    #     security unlock-keychain -p "$PASSWORD_KEYCHAIN" $RUNNER_TEMP/app-signing.keychain-db
-    #     flutter build ipa \
-    #       --release \
-    #       --export-options-plist="${{ github.workspace }}/ios/Runner/ExportOptions.plist"
+    - name: Create iOS appbundle release
+      env:
+        KEYCHAIN_PASSWORD: ${{ secrets.PASSWORD_KEYCHAIN }}
+      run: |
+        security unlock-keychain -p "$PASSWORD_KEYCHAIN" $RUNNER_TEMP/app-signing.keychain-db
+        flutter build ipa \
+          --release \
+          --export-options-plist="${{ github.workspace }}/ios/Runner/ExportOptions.plist"
 
     - name: Deploy to App Store (Testflight)
       uses: apple-actions/upload-testflight-build@v1
