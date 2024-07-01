@@ -42,8 +42,8 @@ jobs:
         PATH_EXPORT_OPTIONS="${{ github.workspace }}/ios/Runner/ExportOptions.plist"
 
         # import certificate, provisioning profile and export options from secrets
-        echo -n "$BASE64_CERTIFICATE_DISTRIBUTION" | base64 --decode -o $PATH_CERTIFICATE_DISTRIBUTION
-        # echo -n "$BASE64_CERTIFICATE_DEVELOPER" | base64 --decode -o $PATH_CERTIFICATE_DEVELOPER
+        # echo -n "$BASE64_CERTIFICATE_DISTRIBUTION" | base64 --decode -o $PATH_CERTIFICATE_DISTRIBUTION
+        echo -n "$BASE64_CERTIFICATE_DEVELOPER" | base64 --decode -o $PATH_CERTIFICATE_DEVELOPER
         echo -n "$BASE64_PP_CICDTESTAPP" | base64 --decode -o $PATH_PROVISIONING_PROFILE
         echo -n "$BASE64_EXPORT_OPTIONS" | base64 --decode -o $PATH_EXPORT_OPTIONS
 
@@ -53,8 +53,8 @@ jobs:
         security unlock-keychain -p "$PASSWORD_KEYCHAIN" $PATH_KEYCHAIN
 
         # import certificate to keychain
-        security import $PATH_CERTIFICATE_DISTRIBUTION -P "$PASSWORD_CERTIFICATE_DISTRIBUTION" -A -t cert -f pkcs12 -k $PATH_KEYCHAIN
-        # security import $PATH_CERTIFICATE_DEVELOPER -P "$PASSWORD_CERTIFICATE_DISTRIBUTION" -A -t cert -f pkcs12 -k $PATH_KEYCHAIN
+        # security import $PATH_CERTIFICATE_DISTRIBUTION -P "$PASSWORD_CERTIFICATE_DISTRIBUTION" -A -t cert -f pkcs12 -k $PATH_KEYCHAIN
+        security import $PATH_CERTIFICATE_DEVELOPER -P "$PASSWORD_CERTIFICATE_DISTRIBUTION" -A -t cert -f pkcs12 -k $PATH_KEYCHAIN
         security list-keychain -d user -s $PATH_KEYCHAIN
 
         # apply provisioning profile
