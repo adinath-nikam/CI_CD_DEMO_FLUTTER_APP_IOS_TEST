@@ -52,67 +52,7 @@ jobs:
           # security import $DEV_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
-          
-          
-          # - name: Install Apple certificate and provisioning profile
-          #   env:
-          #     BASE64_CERTIFICATE_DISTRIBUTION: "${{ secrets.BASE64_CERTIFICATE_DISTRIBUTION }}"
-          #     BASE64_CERTIFICATE_DEVELOPER: "${{ secrets.BASE64_CERTIFICATE_DEVELOPER }}"
-          #     PASSWORD_CERTIFICATE_DISTRIBUTION: "${{ secrets.PASSWORD_CERTIFICATE_DISTRIBUTION }}"
-          #     BASE64_PP_CICDTESTAPP: "${{ secrets.BASE64_PP_CICDTESTAPP }}"
-          #     PASSWORD_KEYCHAIN: "${{ secrets.PASSWORD_KEYCHAIN }}"
-          #     BASE64_EXPORT_OPTIONS: "${{ secrets.BASE64_EXPORT_OPTIONS }}"
-          # 
-          #   run: |
-          #     # create variables
-          #     PATH_CERTIFICATE_DISTRIBUTION=$RUNNER_TEMP/certificate_distribution.p12
-          #     PATH_CERTIFICATE_DEVELOPER=$RUNNER_TEMP/certificate_developer.p12
-          #     PATH_PROVISIONING_PROFILE=$RUNNER_TEMP/pp_cicdtestapp.mobileprovision
-          #     PATH_KEYCHAIN=$RUNNER_TEMP/app-signing.keychain-db
-      
-
-      #     PATH_EXPORT_OPTIONS="${{ github.workspace }}/ios/Runner/ExportOptions.plist"
-      # 
-      #     # import certificate, provisioning profile and export options from secrets
-      #     echo -n "$BASE64_CERTIFICATE_DISTRIBUTION" | base64 --decode -o $PATH_CERTIFICATE_DISTRIBUTION
-      #     echo -n "$BASE64_CERTIFICATE_DEVELOPER" | base64 --decode -o $PATH_CERTIFICATE_DEVELOPER
-      #     echo -n "$BASE64_PP_CICDTESTAPP" | base64 --decode -o $PATH_PROVISIONING_PROFILE
-      #     echo -n "$BASE64_EXPORT_OPTIONS" | base64 --decode -o $PATH_EXPORT_OPTIONS
-
-      #     # create temporary keychain
-      #     security create-keychain -p "$PASSWORD_KEYCHAIN" $PATH_KEYCHAIN
-      #     security set-keychain-settings -lut 21600 $PATH_KEYCHAIN
-      #     security unlock-keychain -p "$PASSWORD_KEYCHAIN" $PATH_KEYCHAIN
-      # 
-      #     # import certificate to keychain
-      #     security import $PATH_CERTIFICATE_DISTRIBUTION -P "$PASSWORD_CERTIFICATE_DISTRIBUTION" -A -t cert -f pkcs12 -k $PATH_KEYCHAIN
-      #     security import $PATH_CERTIFICATE_DEVELOPER -P "$PASSWORD_CERTIFICATE_DISTRIBUTION" -A -t cert -f pkcs12 -k $PATH_KEYCHAIN
-      #     security list-keychain -d user -s $PATH_KEYCHAIN
-      # 
-      #     # apply provisioning profile
-      #     mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-      #     cp $PATH_PROVISIONING_PROFILE ~/Library/MobileDevice/Provisioning\ Profiles
-
-
-
-      # - name: Set development team for code signing
-      #   env:
-      #     DEVELOPMENT_TEAM: "YZGZ2642SH"
-      #   run: |
-      #     xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -configuration Release -allowProvisioningUpdates -destination 'generic/platform=iOS' CODE_SIGN_STYLE=Automatic DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM
-      # 
-      # - name: Export Xcode Archive
-      #   run: |
-      #     xcodebuild -workspace ios/Runner.xcworkspace \
-      #                -scheme Runner \
-      #                -sdk iphoneos \
-      #                -configuration Release \
-      #                archive \
-      #                -archivePath $PWD/build/Runner.xcarchive \
-      #                DEVELOPMENT_TEAM="LQ6RFS97ZY" \
-      #                -allowProvisioningUpdates
-
-
+        
       - name: Export Archive
         run: |
           security unlock-keychain -p "abc@123" $RUNNER_TEMP/app-signing.keychain-db
