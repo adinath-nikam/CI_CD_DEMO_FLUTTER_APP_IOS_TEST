@@ -42,12 +42,6 @@ jobs:
 
           ls -l $RUNNER_TEMP
 
-          cd $RUNNER_TEMP
-
-          # cat build_certificate.p12
-
-          cat dis_build_certificate.p12
-
           # create temporary keychain
           security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
           security set-keychain-settings -lt 21600 $KEYCHAIN_PATH
@@ -68,7 +62,7 @@ jobs:
           #     BASE64_PP_CICDTESTAPP: "${{ secrets.BASE64_PP_CICDTESTAPP }}"
           #     PASSWORD_KEYCHAIN: "${{ secrets.PASSWORD_KEYCHAIN }}"
           #     BASE64_EXPORT_OPTIONS: "${{ secrets.BASE64_EXPORT_OPTIONS }}"
-          
+          # 
           #   run: |
           #     # create variables
           #     PATH_CERTIFICATE_DISTRIBUTION=$RUNNER_TEMP/certificate_distribution.p12
@@ -78,7 +72,7 @@ jobs:
       
 
       #     PATH_EXPORT_OPTIONS="${{ github.workspace }}/ios/Runner/ExportOptions.plist"
-
+      # 
       #     # import certificate, provisioning profile and export options from secrets
       #     echo -n "$BASE64_CERTIFICATE_DISTRIBUTION" | base64 --decode -o $PATH_CERTIFICATE_DISTRIBUTION
       #     echo -n "$BASE64_CERTIFICATE_DEVELOPER" | base64 --decode -o $PATH_CERTIFICATE_DEVELOPER
@@ -89,12 +83,12 @@ jobs:
       #     security create-keychain -p "$PASSWORD_KEYCHAIN" $PATH_KEYCHAIN
       #     security set-keychain-settings -lut 21600 $PATH_KEYCHAIN
       #     security unlock-keychain -p "$PASSWORD_KEYCHAIN" $PATH_KEYCHAIN
-
+      # 
       #     # import certificate to keychain
       #     security import $PATH_CERTIFICATE_DISTRIBUTION -P "$PASSWORD_CERTIFICATE_DISTRIBUTION" -A -t cert -f pkcs12 -k $PATH_KEYCHAIN
       #     security import $PATH_CERTIFICATE_DEVELOPER -P "$PASSWORD_CERTIFICATE_DISTRIBUTION" -A -t cert -f pkcs12 -k $PATH_KEYCHAIN
       #     security list-keychain -d user -s $PATH_KEYCHAIN
-
+      # 
       #     # apply provisioning profile
       #     mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
       #     cp $PATH_PROVISIONING_PROFILE ~/Library/MobileDevice/Provisioning\ Profiles
@@ -106,7 +100,7 @@ jobs:
       #     DEVELOPMENT_TEAM: "YZGZ2642SH"
       #   run: |
       #     xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -configuration Release -allowProvisioningUpdates -destination 'generic/platform=iOS' CODE_SIGN_STYLE=Automatic DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM
-
+      # 
       # - name: Export Xcode Archive
       #   run: |
       #     xcodebuild -workspace ios/Runner.xcworkspace \
