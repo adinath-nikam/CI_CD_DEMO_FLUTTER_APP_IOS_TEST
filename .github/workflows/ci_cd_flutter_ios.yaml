@@ -77,7 +77,7 @@ jobs:
       - name: Upload IPA
         run: |
           ios_xcode_test % xcrun altool --upload-app \
-          -f ./build/ios_release/ios_xcode_test.ipa \
+          -f /Users/adinathnikam/Downloads/Work/Learn/CICD/Runners/actions-runner/_work/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/CI_CD_DEMO_FLUTTER_APP_IOS_TEST/build/ios_release/ios_xcode_test.ipa \
           -t ios \
           --apiKey 53CY77L5AS \
           --apiIssuer 69a6de70-a739-47e3-e053-5b8c7c11a4d1
