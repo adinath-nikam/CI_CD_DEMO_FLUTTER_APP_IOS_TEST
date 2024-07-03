@@ -7,8 +7,8 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
-    # runs-on: self-hosted
+    # runs-on: macos-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout repository
@@ -22,41 +22,41 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Install the Apple certificate and provisioning profile
-        env:
-          BUILD_CERTIFICATE_BASE64: ${{ secrets.BASE64_CERTIFICATE_DISTRIBUTION }}
-          DEV_CERT_BASE64: ${{ secrets.BASE64_CERTIFICATE_DEVELOPER }}
-          P12_PASSWORD: ${{ secrets.PASSWORD_CERTIFICATE_DISTRIBUTION }}
-          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BASE64_PP_CICDTESTAPP }}
-          KEYCHAIN_PASSWORD: ${{ secrets.PASSWORD_KEYCHAIN }}
-        run: |
-          # create variables
-          CERTIFICATE_PATH=$RUNNER_TEMP/dis_build_certificate.p12
-          DEV_CERTIFICATE_PATH=$RUNNER_TEMP/dev_build_certificate.p12
-          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
-          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+      # - name: Install the Apple certificate and provisioning profile
+      #   env:
+      #     BUILD_CERTIFICATE_BASE64: ${{ secrets.BASE64_CERTIFICATE_DISTRIBUTION }}
+      #     DEV_CERT_BASE64: ${{ secrets.BASE64_CERTIFICATE_DEVELOPER }}
+      #     P12_PASSWORD: ${{ secrets.PASSWORD_CERTIFICATE_DISTRIBUTION }}
+      #     BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BASE64_PP_CICDTESTAPP }}
+      #     KEYCHAIN_PASSWORD: ${{ secrets.PASSWORD_KEYCHAIN }}
+      #   run: |
+      #     # create variables
+      #     CERTIFICATE_PATH=$RUNNER_TEMP/dis_build_certificate.p12
+      #     DEV_CERTIFICATE_PATH=$RUNNER_TEMP/dev_build_certificate.p12
+      #     PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+      #     KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
 
-          # import certificate and provisioning profile from secrets
-          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
-          echo -n "$DEV_CERT_BASE64" | base64 --decode -o $DEV_CERTIFICATE_PATH
-          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+      #     # import certificate and provisioning profile from secrets
+      #     echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+      #     echo -n "$DEV_CERT_BASE64" | base64 --decode -o $DEV_CERTIFICATE_PATH
+      #     echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
 
-          ls -l $RUNNER_TEMP
+      #     ls -l $RUNNER_TEMP
 
-          # create temporary keychain
-          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          security set-keychain-settings -lt 21600 $KEYCHAIN_PATH
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+      #     # create temporary keychain
+      #     security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+      #     security set-keychain-settings -lt 21600 $KEYCHAIN_PATH
+      #     security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
 
-          # import certificate to keychain
-          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security import $DEV_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          security list-keychain -d user -s $KEYCHAIN_PATH
+      #     # import certificate to keychain
+      #     security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+      #     security import $DEV_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+      #     security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+      #     security list-keychain -d user -s $KEYCHAIN_PATH
 
-          # apply provisioning profile
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+      #     # apply provisioning profile
+      #     mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+      #     cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
         
       - name: Export Archive
         run: |
@@ -64,7 +64,7 @@ jobs:
           security find-identity -p codesigning
 
         
-          # security unlock-keychain -p abcd@1234 login.keychain
+          security unlock-keychain -p abcd@1234 login.keychain
           xcodebuild -workspace ios/Runner.xcworkspace \
                      -scheme Runner \
                      -sdk iphoneos \
@@ -72,8 +72,8 @@ jobs:
                      archive \
                      -archivePath $PWD/build/Runner.xcarchive \
                      DEVELOPMENT_TEAM="LQ6RFS97ZY" \
-                     PROVISIONING_PROFILE_SPECIFIER="832e1279-15fb-4085-a895-f9db2930c0f5" \
-                     CODE_SIGN_STYLE="Manual" \
+                     # PROVISIONING_PROFILE_SPECIFIER="832e1279-15fb-4085-a895-f9db2930c0f5" \
+                     # CODE_SIGN_STYLE="Manual" \
                      -allowProvisioningUpdates
 
 
@@ -84,12 +84,12 @@ jobs:
                      -exportPath $PWD/build/ios_release
 
 
-      - name: Upload IPA
-        run: |
-          pwd
+      # - name: Upload IPA
+      #   run: |
+      #     pwd
 
-          xcrun altool --upload-app \
-          -f ./build/ios_release/ios_xcode_test.ipa \
-          -t ios \
-          --apiKey 53CY77L5AS \
-          --apiIssuer 69a6de70-a739-47e3-e053-5b8c7c11a4d1
+      #     xcrun altool --upload-app \
+      #     -f ./build/ios_release/ios_xcode_test.ipa \
+      #     -t ios \
+      #     --apiKey 53CY77L5AS \
+      #     --apiIssuer 69a6de70-a739-47e3-e053-5b8c7c11a4d1
