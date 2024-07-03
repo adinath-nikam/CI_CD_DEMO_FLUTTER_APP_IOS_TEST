@@ -78,7 +78,7 @@ jobs:
         run: |
           pwd
 
-          ios_xcode_test % xcrun altool --upload-app \
+          xcrun altool --upload-app \
           -f ./build/ios_release/ios_xcode_test.ipa \
           -t ios \
           --apiKey 53CY77L5AS \
