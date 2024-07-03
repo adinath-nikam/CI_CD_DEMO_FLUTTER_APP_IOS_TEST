@@ -68,7 +68,7 @@ jobs:
                      archive \
                      -archivePath $PWD/build/Runner.xcarchive \
                      DEVELOPMENT_TEAM="LQ6RFS97ZY" \
-                     PROVISIONING_PROFILE_SPECIFIER="832e1279-15fb-4085-a895-f9db2930c0f5" \
+                     PROVISIONING_PROFILE_SPECIFIER="com.scientificgames.cicdtestapp" \
                      CODE_SIGN_STYLE="Manual" \
                      -allowProvisioningUpdates
 
