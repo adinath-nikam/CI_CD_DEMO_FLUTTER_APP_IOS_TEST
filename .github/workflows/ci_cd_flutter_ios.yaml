@@ -67,7 +67,7 @@ jobs:
                      archive \
                      -archivePath $PWD/build/Runner.xcarchive \
                      DEVELOPMENT_TEAM="LQ6RFS97ZY" \
-                     PROVISIONING_PROFILE_SPECIFIER="CICD Test App" \
+                     PROVISIONING_PROFILE_SPECIFIER="cicdtestapp_pp" \
                      CODE_SIGN_STYLE="Manual" \
                      -allowProvisioningUpdates
                      
