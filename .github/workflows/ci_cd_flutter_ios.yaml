@@ -56,6 +56,8 @@ jobs:
       - name: Export Archive
         run: |
           security find-identity -p codesigning
+
+          xcodebuild -version
         
           # security unlock-keychain -p abcd@1234 login.keychain
           xcodebuild -workspace ios/Runner.xcworkspace \
@@ -64,8 +66,8 @@ jobs:
                      -configuration Release \
                      archive \
                      -archivePath $PWD/build/Runner.xcarchive \
-                     DEVELOPMENT_TEAM="YZGZ2642SH" \
-                     PROVISIONING_PROFILE_SPECIFIER="832e1279-15fb-4085-a895-f9db2930c0f5" \
+                     DEVELOPMENT_TEAM="LQ6RFS97ZY" \
+                     PROVISIONING_PROFILE_SPECIFIER="CICD Test App" \
                      CODE_SIGN_STYLE="Manual" \
                      -allowProvisioningUpdates
                      
