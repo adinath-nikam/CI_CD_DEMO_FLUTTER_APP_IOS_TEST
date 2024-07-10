@@ -66,7 +66,7 @@ jobs:
           # create variables
           CERTIFICATE_PATH=$RUNNER_TEMP/dis_build_certificate.p12
           DEV_CERTIFICATE_PATH=$RUNNER_TEMP/dev_build_certificate.p12
-          PP_PATH=$RUNNER_TEMP/cicdtestapp_pp.mobileprovision
+          PP_PATH=$RUNNER_TEMP/83c8f6ba-160b-4417-b163-f8fe0c3226a8.mobileprovision
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
     
           # import certificate and provisioning profile from secrets
@@ -130,7 +130,7 @@ jobs:
            -configuration Release \
            archive \
            -archivePath $PWD/build/Runner.xcarchive \
-           PROVISIONING_PROFILE_SPECIFIER="cicdtestapp_pp" \
+           PROVISIONING_PROFILE_SPECIFIER="83c8f6ba-160b-4417-b163-f8fe0c3226a8" \
            CODE_SIGN_STYLE="Manual" \
            DEVELOPMENT_TEAM="LQ6RFS97ZY" \
            PRODUCT_BUNDLE_IDENTIFIER="com.scientificgames.cicdtestapp" \
