@@ -52,6 +52,9 @@ jobs:
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          cd ~/Library/MobileDevice/Provisioning\ Profiles
+          ls -l
+          
 
       # - name: Flutter Build IPA
       #   run: |
@@ -82,7 +85,7 @@ jobs:
            -configuration Release \
            archive \
            -archivePath $PWD/build/Runner.xcarchive \
-           PROVISIONING_PROFILE_SPECIFIER="cicdtestapp_pp" \
+           PROVISIONING_PROFILE_SPECIFIER="832e1279-15fb-4085-a895-f9db2930c0f5" \
            CODE_SIGN_STYLE="Manual" \
            DEVELOPMENT_TEAM="LQ6RFS97ZY" \
            PRODUCT_BUNDLE_IDENTIFIER="com.scientificgames.cicdtestapp" \
