@@ -66,15 +66,29 @@ jobs:
           xcodebuild -version
         
           # security unlock-keychain -p abcd@1234 login.keychain
+          # xcodebuild -workspace ios/Runner.xcworkspace \
+          #            -scheme Runner \
+          #            -sdk iphoneos \
+          #            -configuration Release \
+          #            archive \
+          #            -archivePath $PWD/build/Runner.xcarchive \
+          #            PROVISIONING_PROFILE_SPECIFIER="cicdtestapp_pp" \
+          #            CODE_SIGN_STYLE="Manual" \
+          #            -allowProvisioningUpdates
+
           xcodebuild -workspace ios/Runner.xcworkspace \
-                     -scheme Runner \
-                     -sdk iphoneos \
-                     -configuration Release \
-                     archive \
-                     -archivePath $PWD/build/Runner.xcarchive \
-                     PROVISIONING_PROFILE_SPECIFIER="cicdtestapp_pp" \
-                     CODE_SIGN_STYLE="Manual" \
-                     -allowProvisioningUpdates
+           -scheme Runner \
+           -sdk iphoneos \
+           -configuration Release \
+           archive \
+           -archivePath $PWD/build/Runner.xcarchive \
+           PROVISIONING_PROFILE_SPECIFIER="cicdtestapp_pp" \
+           CODE_SIGN_STYLE="Manual" \
+           DEVELOPMENT_TEAM="LQ6RFS97ZY" \
+           PRODUCT_BUNDLE_IDENTIFIER="com.scientificgames.cicdtestapp" \
+           SWIFT_VERSION="5.0" \
+           -allowProvisioningUpdates
+
                      
       - name: Export IPA
         run: |
