@@ -52,30 +52,36 @@ jobs:
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-        
-      - name: Export Archive
+
+      - name: Flutter Build IPA
         run: |
           security find-identity -p codesigning
-
           xcodebuild -version
+          flutter build ipa --release --export-options-plist ios/Runner/ExportOptions.plist
         
-          # security unlock-keychain -p abcd@1234 login.keychain
-          xcodebuild -workspace ios/Runner.xcworkspace \
-                     -scheme Runner \
-                     -sdk iphoneos \
-                     -configuration Release \
-                     archive \
-                     -archivePath $PWD/build/Runner.xcarchive \
-                     DEVELOPMENT_TEAM="LQ6RFS97ZY" \
-                     PROVISIONING_PROFILE_SPECIFIER="cicdtestapp_pp" \
-                     CODE_SIGN_STYLE="Manual" \
-                     -allowProvisioningUpdates
+      # - name: Export Archive
+      #   run: |
+      #     security find-identity -p codesigning
+
+      #     xcodebuild -version
+        
+      #     # security unlock-keychain -p abcd@1234 login.keychain
+      #     xcodebuild -workspace ios/Runner.xcworkspace \
+      #                -scheme Runner \
+      #                -sdk iphoneos \
+      #                -configuration Release \
+      #                archive \
+      #                -archivePath $PWD/build/Runner.xcarchive \
+      #                DEVELOPMENT_TEAM="LQ6RFS97ZY" \
+      #                PROVISIONING_PROFILE_SPECIFIER="cicdtestapp_pp" \
+      #                CODE_SIGN_STYLE="Manual" \
+      #                -allowProvisioningUpdates
                      
-      - name: Export IPA
-        run: |
-          xcodebuild -exportArchive -archivePath $PWD/build/Runner.xcarchive \
-                     -exportOptionsPlist ios/Runner/ExportOptions.plist \
-                     -exportPath $PWD/build/ios_release
+      # - name: Export IPA
+      #   run: |
+      #     xcodebuild -exportArchive -archivePath $PWD/build/Runner.xcarchive \
+      #                -exportOptionsPlist ios/Runner/ExportOptions.plist \
+      #                -exportPath $PWD/build/ios_release
 
       - name: Upload IPA
         run: |
