@@ -134,8 +134,7 @@ jobs:
            CODE_SIGN_STYLE="Manual" \
            DEVELOPMENT_TEAM="LQ6RFS97ZY" \
            PRODUCT_BUNDLE_IDENTIFIER="com.scientificgames.cicdtestapp" \
-           SWIFT_VERSION="5.0" \
-           -allowProvisioningUpdates
+           SWIFT_VERSION="5.0"
 
                      
       - name: Export IPA
