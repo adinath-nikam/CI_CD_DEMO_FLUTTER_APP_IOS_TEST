@@ -124,32 +124,18 @@ jobs:
           #            CODE_SIGN_STYLE="Manual" \
           #            -allowProvisioningUpdates
 
-          # xcodebuild -workspace ios/Runner.xcworkspace \
-          #  -scheme Runner \
-          #  -sdk iphoneos \
-          #  -configuration Release \
-          #  archive \
-          #  -archivePath $PWD/build/Runner.xcarchive \
-          #  CODE_SIGN_STYLE="Automatic" \
-          #  DEVELOPMENT_TEAM="LQ6RFS97ZY" \
-          #  PRODUCT_BUNDLE_IDENTIFIER="com.scientificgames.cicdtestapp" \
-          #  -allowProvisioningUpdates
+          xcodebuild -workspace ios/Runner.xcworkspace \
+           -scheme Runner \
+           -sdk iphoneos \
+           -configuration Release \
+           archive \
+           -archivePath $PWD/build/Runner.xcarchive \
+           CODE_SIGN_STYLE="Automatic" \
+           DEVELOPMENT_TEAM="LQ6RFS97ZY" \
+           PRODUCT_BUNDLE_IDENTIFIER="com.scientificgames.cicdtestapp" \
+           -allowProvisioningUpdates
            # PROVISIONING_PROFILE_SPECIFIER="83c8f6ba-160b-4417-b163-f8fe0c3226a8" \
            # SWIFT_VERSION="5.0"
-           
-           xcodebuild -workspace ios/Runner.xcworkspace \
-             -scheme Runner \
-             -sdk iphoneos \
-             -configuration Release \
-             archive \
-             -archivePath $PWD/build/Runner.xcarchive \
-             CODE_SIGN_STYLE="Manual" \
-             DEVELOPMENT_TEAM="LQ6RFS97ZY" \
-             PRODUCT_BUNDLE_IDENTIFIER="com.scientificgames.cicdtestapp" \
-             PROVISIONING_PROFILE_SPECIFIER="83c8f6ba-160b-4417-b163-f8fe0c3226a8" \
-             -allowProvisioningUpdates
-
-
                      
       - name: Export IPA
         run: |
