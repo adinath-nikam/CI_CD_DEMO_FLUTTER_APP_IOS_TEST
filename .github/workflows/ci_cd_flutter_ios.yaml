@@ -130,11 +130,11 @@ jobs:
            -configuration Release \
            archive \
            -archivePath $PWD/build/Runner.xcarchive \
-           CODE_SIGN_STYLE="Manual" \
+           CODE_SIGN_STYLE="Automatic" \
            DEVELOPMENT_TEAM="YZGZ2642SH" \
            PRODUCT_BUNDLE_IDENTIFIER="com.scientificgames.cicdtestapp" \
            -allowProvisioningUpdates
-            PROVISIONING_PROFILE_SPECIFIER="83c8f6ba-160b-4417-b163-f8fe0c3226a8" \
+#            PROVISIONING_PROFILE_SPECIFIER="83c8f6ba-160b-4417-b163-f8fe0c3226a8" \
            # SWIFT_VERSION="5.0"
                      
       - name: Export IPA
