@@ -134,7 +134,7 @@ jobs:
            DEVELOPMENT_TEAM="LQ6RFS97ZY" \
            PRODUCT_BUNDLE_IDENTIFIER="com.scientificgames.cicdtestapp" \
            -allowProvisioningUpdates
-           # PROVISIONING_PROFILE_SPECIFIER="83c8f6ba-160b-4417-b163-f8fe0c3226a8" \
+            PROVISIONING_PROFILE_SPECIFIER="83c8f6ba-160b-4417-b163-f8fe0c3226a8" \
            # SWIFT_VERSION="5.0"
                      
       - name: Export IPA
